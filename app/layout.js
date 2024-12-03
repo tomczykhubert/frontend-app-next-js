@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
+import { AuthProvider } from "./lib/firebase/AuthContext";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -25,9 +25,11 @@ export default function RootLayout({ children }) {
       <body
         className={`container root-layout ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

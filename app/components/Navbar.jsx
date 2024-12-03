@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { PiSignIn } from "react-icons/pi";
-import { IoPersonAddSharp } from "react-icons/io5";
+import { LuLogOut, LuLogIn, LuUserCircle, LuUserPlus } from "react-icons/lu";
+import { useAuth } from "../lib/firebase/AuthContext";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-
+  const { user } = useAuth();
   return (
     <header className={`flex w-full items-center bg-white dark:bg-dark`}>
       <div className="container">
@@ -50,26 +50,59 @@ const Navbar = () => {
                 } `}
               >
                 <ul className="block lg:flex">
-                  <ListItem NavLink="/#">Home</ListItem>
+                  <Link href="/">Home</Link>
                 </ul>
               </nav>
             </div>
             <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
-              <Link
-                href="/user/signin"
-                className="px-4 py-3 text-base font-medium text-dark hover:text-primary dark:text-white flex items-center gap-2"
-              >
-                <PiSignIn size={25} />
-                Sign in
-              </Link>
-
-              <Link
-                href="/user/singup"
-                className="rounded-md bg-primary px-4 py-3 text-base text-dark font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
-              >
-                <IoPersonAddSharp size={25} />
-                Sign Up
-              </Link>
+              {!user ? (
+                <>
+                  <Link
+                    href="/user/signin"
+                    className="px-4 py-3 text-base font-medium text-dark hover:text-primary dark:text-white flex items-center gap-2"
+                  >
+                    <LuLogIn size={25} />
+                    Sign in
+                  </Link>
+                  <Link
+                    href="/user/register"
+                    className="rounded-md bg-primary px-4 py-3 text-base text-dark font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
+                  >
+                    <LuUserPlus size={25} />
+                    Sign Up
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-center">
+                    Hello, {user.displayName}
+                    {user.photoURL ? (
+                      <Image
+                        src={user.photoURL}
+                        alt="Profile photo"
+                        width={50}
+                        height={50}
+                        className="rounded ms-2"
+                        style={{ aspectRatio: "1/1", objectFit: "cover" }}
+                      />
+                    ) : null}
+                  </div>
+                  <Link
+                    href="/user/profile"
+                    className="rounded-md bg-primary px-4 py-3 text-base text-dark font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
+                  >
+                    <LuUserCircle size={25} />
+                    Profile
+                  </Link>
+                  <Link
+                    href="/user/signout"
+                    className="rounded-md bg-primary px-4 py-3 text-base text-dark font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
+                  >
+                    <LuLogOut size={25} />
+                    Log out
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -79,18 +112,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-const ListItem = ({ children, NavLink }) => {
-  return (
-    <>
-      <li>
-        <a
-          href={NavLink}
-          className="flex py-2 text-base font-medium text-body-color hover:text-dark dark:text-dark-6 dark:hover:text-white lg:ml-12 lg:inline-flex"
-        >
-          {children}
-        </a>
-      </li>
-    </>
-  );
-};

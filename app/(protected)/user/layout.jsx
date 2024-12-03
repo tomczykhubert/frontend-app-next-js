@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { app } from "@/app/lib/firebase/firebase";
 
 function Protected({ children }) {
-  const { user } = useAuth(app);
+  const { user } = useAuth();
   const returnUrl = usePathname();
 
   useLayoutEffect(() => {

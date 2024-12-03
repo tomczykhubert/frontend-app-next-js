@@ -9,13 +9,19 @@ import { useSearchParams, useRouter, redirect } from "next/navigation";
 import { app } from "@/app/lib/firebase/firebase";
 import Form from "next/form";
 import { useState } from "react";
-
+import { InputBox } from "@/app/components/InputBox";
+import { Error } from "@/app/components/Error";
+import { useAuth } from "@/app/lib/firebase/AuthContext";
 export default function SignInForm() {
   const [error, setError] = useState("");
+  const { user } = useAuth();
   const auth = getAuth(app);
   const params = useSearchParams();
   const router = useRouter();
   const returnUrl = params.get("returnUrl");
+  if (user) {
+    return null;
+  }
   const onSubmit = (e) => {
     e.preventDefault();
     const email = e.target["email"].value;
@@ -25,6 +31,9 @@ export default function SignInForm() {
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             returnUrl ? router.push(returnUrl) : router.push("/");
+            userCredential.user.emailVerified
+              ? null
+              : router.push("/user/verify");
           })
           .catch((error) => {
             setError({ code: error.code, message: error.message });
@@ -34,9 +43,9 @@ export default function SignInForm() {
         setError({ code: error.code, message: error.message });
       });
   };
-  const classes = "";
   return (
     <div>
+      <div className="text-center text-3xl mb-5">Sign in</div>
       {error ? <Error error={error} /> : null}
       <Form
         onSubmit={onSubmit}
@@ -55,32 +64,3 @@ export default function SignInForm() {
     </div>
   );
 }
-const InputBox = ({ type, placeholder, name }) => {
-  return (
-    <div className="mb-6">
-      <input
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-white"
-      />
-    </div>
-  );
-};
-
-const Error = ({ error }) => {
-  return (
-    <div className="flex justify-center mb-3">
-      <div
-        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-        role="alert"
-      >
-        <strong className="block">An error occured!</strong>
-        {error.code ? <span className="block">Error; {error.code}</span> : null}
-        {error.message ? (
-          <span className="block">Message; {error.message}</span>
-        ) : null}
-      </div>
-    </div>
-  );
-};
