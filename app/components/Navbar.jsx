@@ -59,6 +59,9 @@ const Navbar = () => {
                       <Link className="block" href="/tic-tac-toe">
                         Tic-Tac-Toe
                       </Link>
+                      <Link className="block" href="/user/articles">
+                        Your articles
+                      </Link>
                     </>
                   ) : (
                     <></>
