@@ -1,15 +1,14 @@
 "use client";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { getAuth } from "firebase/auth";
-import { app } from "@/app/lib/firebase/firebase";
+import { auth } from "@/app/lib/firebase/firebase";
 
 export default function LogoutForm() {
   const router = useRouter();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    signOut(getAuth(app));
+    signOut(auth);
     router.push("/");
   };
   return (

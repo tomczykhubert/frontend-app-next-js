@@ -1,12 +1,12 @@
 "use client";
-import { getAuth, sendEmailVerification, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { useAuth } from "@/app/lib/firebase/AuthContext";
-import { app } from "@/app/lib/firebase/firebase";
+import { auth } from "@/app/lib/firebase/firebase";
 import { useState } from "react";
 export default function VerifyEmail() {
   const { user } = useAuth();
   const [userVerify, setUser] = useState(user);
-  signOut(getAuth(app));
+  signOut(auth);
   return (
     <>
       <h1>

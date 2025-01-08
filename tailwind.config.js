@@ -16,6 +16,6 @@ module.exports = {
       center: true,
     },
   },
-  plugins: [],
+  plugins: [require("tailgrids/plugin")],
   darkMode: "selector",
 };

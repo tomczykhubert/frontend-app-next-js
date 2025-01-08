@@ -1,6 +1,5 @@
 "use client";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signOut,
@@ -10,8 +9,8 @@ import { useState } from "react";
 import { InputBox } from "@/app/components/InputBox";
 import Form from "next/form";
 import { Error } from "@/app/components/Error";
-import { app } from "@/app/lib/firebase/firebase";
 import { useRouter } from "next/navigation";
+import { auth } from "@/app/lib/firebase/firebase";
 
 export default function RegisterForm() {
   const [error, setError] = useState("");
@@ -21,8 +20,6 @@ export default function RegisterForm() {
   if (user) {
     return null;
   }
-
-  const auth = getAuth(app);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +63,7 @@ export default function RegisterForm() {
           <input
             type="submit"
             value="Sign up"
-            className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium transition hover:bg-opacity-90"
+            className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium transition hover:bg-opacity-90 text-white"
           />
         </div>
       </Form>

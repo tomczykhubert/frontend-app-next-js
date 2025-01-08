@@ -4,18 +4,16 @@ import {
   setPersistence,
   browserSessionPersistence,
 } from "firebase/auth";
-import { getAuth } from "firebase/auth";
 import { useSearchParams, useRouter, redirect } from "next/navigation";
-import { app } from "@/app/lib/firebase/firebase";
 import Form from "next/form";
 import { useState } from "react";
 import { InputBox } from "@/app/components/InputBox";
 import { Error } from "@/app/components/Error";
 import { useAuth } from "@/app/lib/firebase/AuthContext";
+import { auth } from "@/app/lib/firebase/firebase";
 export default function SignInForm() {
   const [error, setError] = useState("");
   const { user } = useAuth();
-  const auth = getAuth(app);
   const params = useSearchParams();
   const router = useRouter();
   const returnUrl = params.get("returnUrl");
@@ -45,7 +43,7 @@ export default function SignInForm() {
   };
   return (
     <div>
-      <div className="text-center text-3xl mb-5">Sign in</div>
+      <h1 className="text-center text-3xl mb-5">Sign in</h1>
       {error ? <Error error={error} /> : null}
       <Form
         onSubmit={onSubmit}
@@ -56,8 +54,9 @@ export default function SignInForm() {
         <div className="mb-10">
           <input
             type="submit"
+            data-testid="submit-button"
             value="Sign In"
-            className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium transition hover:bg-opacity-90"
+            className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium transition hover:bg-opacity-90 text-white"
           />
         </div>
       </Form>

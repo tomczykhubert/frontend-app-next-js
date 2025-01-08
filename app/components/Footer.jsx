@@ -65,23 +65,20 @@ const Footer = () => {
               </div>
             </div>
 
-            <LinkGroup header="Resources">
-              <NavLink link="/#" label="SaaS Development" />
-              <NavLink link="/#" label="Our Products" />
-              <NavLink link="/#" label="User Flow" />
-              <NavLink link="/#" label="User Strategy" />
+            <LinkGroup header="Tic-Tac-Toe">
+              <NavLink link="/tic-tac-toe" label="Start new game" />
+              <NavLink link="/tic-tac-toe/history" label="Previous games" />
+              <NavLink link="/tic-tac-toe/settings" label="Game settings" />
             </LinkGroup>
-            <LinkGroup header="Company">
-              <NavLink link="/#" label="About TailGrids" />
-              <NavLink link="/#" label="Contact & Support" />
-              <NavLink link="/#" label="Success History" />
-              <NavLink link="/#" label="Setting & Privacy" />
+            <LinkGroup header="User">
+              <NavLink link="/profile" label="Profile" />
+              <NavLink link="/changepassword" label="Change password" />
+              <NavLink link="/signout" label="Sign out" />
             </LinkGroup>
-            <LinkGroup header="Quick Links">
-              <NavLink link="/#" label="Premium Support" />
-              <NavLink link="/#" label="Our Services" />
-              <NavLink link="/#" label="Know Our Team" />
-              <NavLink link="/#" label="Download App" />
+            <LinkGroup header="Public">
+              <NavLink link="/user/signin" label="Sign in" />
+              <NavLink link="/user/register" label="Register account" />
+              <NavLink link="/user/verify" label="Verify account" />
             </LinkGroup>
 
             <div className="w-full px-4 sm:w-1/2 lg:w-3/12">

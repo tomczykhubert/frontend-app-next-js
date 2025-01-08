@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { LuLogOut, LuLogIn, LuUserCircle, LuUserPlus } from "react-icons/lu";
+import { LuLogOut, LuLogIn, LuCircleUser, LuUserPlus } from "react-icons/lu";
 import { useAuth } from "../lib/firebase/AuthContext";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -48,25 +48,37 @@ const Navbar = () => {
                 className={`absolute right-4 top-full w-full max-w-[250px] rounded-lg bg-white px-6 py-5 shadow dark:bg-dark-2 lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none lg:dark:bg-transparent ${
                   !open && "hidden"
                 } `}
+                style={{ zIndex: 1000 }}
               >
-                <ul className="block lg:flex">
-                  <Link href="/">Home</Link>
+                <ul className="block lg:flex gap-3">
+                  <Link className="block" href="/">
+                    Home
+                  </Link>
+                  {user ? (
+                    <>
+                      <Link className="block" href="/tic-tac-toe">
+                        Tic-Tac-Toe
+                      </Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </ul>
               </nav>
             </div>
-            <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
+            <div className="hidden justify-end pr-16 sm:flex lg:pr-0 gap-3">
               {!user ? (
                 <>
                   <Link
                     href="/user/signin"
-                    className="px-4 py-3 text-base font-medium text-dark hover:text-primary dark:text-white flex items-center gap-2"
+                    className="rounded-md bg-primary px-4 py-3 text-base text-white font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
                   >
                     <LuLogIn size={25} />
                     Sign in
                   </Link>
                   <Link
                     href="/user/register"
-                    className="rounded-md bg-primary px-4 py-3 text-base text-dark font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
+                    className="rounded-md bg-primary px-4 py-3 text-base text-white font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
                   >
                     <LuUserPlus size={25} />
                     Sign Up
@@ -89,14 +101,15 @@ const Navbar = () => {
                   </div>
                   <Link
                     href="/user/profile"
-                    className="rounded-md bg-primary px-4 py-3 text-base text-dark font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
+                    id="profile"
+                    className="rounded-md bg-primary px-4 py-3 text-base text-white font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
                   >
-                    <LuUserCircle size={25} />
+                    <LuCircleUser size={25} />
                     Profile
                   </Link>
                   <Link
                     href="/user/signout"
-                    className="rounded-md bg-primary px-4 py-3 text-base text-dark font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
+                    className="rounded-md bg-primary px-4 py-3 text-base text-white font-medium dark:text-white hover:bg-primary/90 flex items-center gap-2"
                   >
                     <LuLogOut size={25} />
                     Log out
