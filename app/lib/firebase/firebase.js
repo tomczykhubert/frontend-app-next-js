@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
-  authDomain: "frontendapp-2d726.firebaseapp.com",
-  projectId: "frontendapp-2d726",
-  storageBucket: "frontendapp-2d726.firebasestorage.app",
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-  appId: "1:503581534265:web:7ff131264f1bf8cc2b85e8",
-  measurementId: "G-R7152342HP",
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASURMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);
